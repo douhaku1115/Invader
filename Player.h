@@ -12,4 +12,5 @@ struct Player :Rect {
 	int init();
 	void update();
 	void draw();
+	void shoot();
 };

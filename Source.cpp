@@ -7,7 +7,6 @@
 #include "audio.h"
 #include "Rect.h"
 #include "tex.h"
-#include "Player.h"
 #include "Header.h"
 
 
@@ -15,9 +14,10 @@
 using namespace glm;
 #define BALL_MAX 2
 
-bool keys[256];
+bool g_keys[256];
 
-Player player;
+Player g_player;
+PlayerBullet g_playerBullet;
 
 void display(void) {
 	
@@ -39,7 +39,9 @@ void display(void) {
 		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
 	
 	//Rect(vec2(128, 128)).draw();
-	player.draw();
+	
+	g_playerBullet.draw();
+	g_player.draw();
 
 	fontBegin();
 	fontHeight(FONT_DEFAULT_HEIGHT);
@@ -54,7 +56,8 @@ void display(void) {
 
 void idle(void){
 	audioUpdate();
-	player.update();
+	g_player.update();
+	g_playerBullet.update();
 	glutPostRedisplay();
 }
 void timer(int value) {
@@ -70,12 +73,17 @@ void keyboard(unsigned char key, int x, int y) {
 	if (key == 0x1b)
 		exit(0);
 	printf("keyboard:\'%c\'(%#x)\n", key, key);
-	keys[key] = true;
+	g_keys[key] = true;
+
+	switch (key) {
+	case ' ':g_player.shoot();
+		break;
+	}
 	
 }
 void keyboardUp(unsigned char key, int x, int y) {
 	printf("keyboardUp:\'%c\'(%#x)\n", key, key);
-	keys[key] = false;
+	g_keys[key] = false;
 }
 void passiveMotion(int x, int y) {
 	printf("passoveMotion::x:%d y:%d\n",x,y);
@@ -93,7 +101,10 @@ int main(int argc, char* argv[]) {
 		glutInitWindowSize(width, height);
 	}
 	glutCreateWindow("tittle");
-	player.init();
+
+	g_player.init();
+	g_playerBullet.init();
+
 	//texFromBPM("test1.bmp");
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
