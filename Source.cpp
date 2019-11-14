@@ -3,15 +3,14 @@
 #include "glut.h"
 #include "font.h"
 #include "Rect.h"
-#include "Ball.h"
 #include <time.h>
-#include "VerticalPaddle.h"
 #include "audio.h"
 #include "Rect.h"
 #include "tex.h"
 #include "Player.h"
-#define SCREEN_WIDTH 256
-#define SCREEN_HEIGHT 256
+#include "Header.h"
+
+
 
 using namespace glm;
 #define BALL_MAX 2
