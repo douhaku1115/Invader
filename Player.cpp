@@ -1,8 +1,10 @@
 
-#include "Header.h"
+
 #include "Player.h"
+#include "Header.h"
 #include "tex.h"
 #include "glut.h"
+#include "audio.h"
 
 int Player::init() {
 	m_size = vec2(PLAYER_WIDTH, PLAYER_HIGHT);
@@ -34,6 +36,21 @@ void Player::draw() {
 void Player::shoot() {
 	if (g_playerBullet.m_enable)
 		return;
+	
+	audioStop(AUDIO_CHANNEL_PULSE0);
+	audioWaveform(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_50);
+	audioFreq(AUDIO_CHANNEL_PULSE0, 440 * 7);
+	audioDecay(AUDIO_CHANNEL_PULSE0, .925f);
+	audioSweep(AUDIO_CHANNEL_PULSE0, .99f, 440);
+	audioPlay(AUDIO_CHANNEL_PULSE0);
+	
+	audioStop(AUDIO_CHANNEL_NOISE);
+	audioFreq(AUDIO_CHANNEL_NOISE,audioIndexToFreq(1));
+	audioSweep(AUDIO_CHANNEL_NOISE, .9f, audioIndexToFreq(15));
+	audioDecay(AUDIO_CHANNEL_NOISE, .95f);
+	audioPlay(AUDIO_CHANNEL_NOISE);
+
+
 	g_playerBullet.m_enable = true;
 	g_playerBullet.m_position = vec2(
 		m_position.x + PLAYER_WIDTH / 2,
