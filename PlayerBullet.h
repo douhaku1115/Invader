@@ -3,7 +3,7 @@
 
 #define PLAYER_BULLET_WIDTH   1
 #define PLAYER_BULLET_HEIGHT  4
-#define PLAYER_BULLET_SPEED   4
+#define PLAYER_BULLET_SPEED   8
 
 
 struct PlayerBullet :Rect {

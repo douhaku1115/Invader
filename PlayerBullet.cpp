@@ -1,5 +1,6 @@
 #include "PlayerBullet.h"
 #include "tex.h"
+#include "Header.h"
 #include "glut.h"
 
 int PlayerBullet::init() {
@@ -20,8 +21,12 @@ void PlayerBullet::update() {
 		return;
 	m_position.y -= PLAYER_BULLET_SPEED;
 
-	if (m_position.y <= -PLAYER_BULLET_HEIGHT)
+	if (m_position.y < 8 * 3) {
 		m_enable = false;
+		g_playerBulletExplosion.start(m_position
+			-g_playerBulletExplosion.m_size/2.f);
+
+	}
 }
 void PlayerBullet::draw() {
 	if (!m_enable)
@@ -29,6 +34,7 @@ void PlayerBullet::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);       //GLuint texture)
+	glColor3ub(0xff, 0xff, 0xff);
 	Rect::draw();
 
 }

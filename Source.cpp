@@ -18,6 +18,7 @@ bool g_keys[256];
 
 Player g_player;
 PlayerBullet g_playerBullet;
+Explosion g_playerBulletExplosion;
 
 void display(void) {
 	
@@ -40,6 +41,7 @@ void display(void) {
 	
 	//Rect(vec2(128, 128)).draw();
 	
+	g_playerBulletExplosion.draw();
 	g_playerBullet.draw();
 	g_player.draw();
 
@@ -56,9 +58,12 @@ void display(void) {
 
 void idle(void){
 	audioUpdate();
+
+	g_playerBulletExplosion.update();
 	g_player.update();
 	g_playerBullet.update();
 	glutPostRedisplay();
+	
 }
 void timer(int value) {
 	glutPostRedisplay();
@@ -104,7 +109,12 @@ int main(int argc, char* argv[]) {
 
 	g_player.init();
 	g_playerBullet.init();
-
+	g_playerBulletExplosion.init("player_bullet_explosion.bmp",
+		vec2(8,8),
+		0x00,0xff,0x00);
+	/*g_playerBulletExplosion.init("textures\1.bmp",
+		vec2(8, 8),
+		0x00, 0xff, 0x00);*/
 	//texFromBPM("test1.bmp");
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);

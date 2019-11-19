@@ -16,7 +16,7 @@ int Player::init() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);       //GLuint texture)
-	texFromBPM("textures\player.bmp",0x00,0xff,0x00);
+	texFromBPM("player.bmp",0x00,0xff,0x00);
 	return 0;
 }
 void Player::update() {
@@ -31,6 +31,7 @@ void Player::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);
+	glColor3ub(0x00, 0xff, 0x00);
 	Rect::draw();
 }
 void Player::shoot() {
