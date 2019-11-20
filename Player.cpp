@@ -16,7 +16,7 @@ int Player::init() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);       //GLuint texture)
-	texFromBPM("player.bmp",0x00,0xff,0x00);
+	texFromBPM("textures\\player.bmp",0x00,0xff,0x00);
 	return 0;
 }
 void Player::update() {

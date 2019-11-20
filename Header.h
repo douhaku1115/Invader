@@ -2,6 +2,9 @@
 #include "PlayerBullet.h"
 #include "Player.h"
 #include "Explosion.h"
+#include "Invader.h"
+
+
 #define SCREEN_WIDTH  256
 #define SCREEN_HEIGHT 256
 
