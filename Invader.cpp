@@ -1,8 +1,13 @@
 #include "Invader.h"
 #include "tex.h"
 #include "glut.h"
+#include "Header.h"
 
-vec2 Invader::m_speed = vec2(1, 0);
+vec2 Invader::m_speed = vec2(INVADER_SPEED, 0);
+vec2 Invader::m_nextSpeed = Invader::m_speed;
+int Invader::m_current ;
+
+Invader g_invaders[INVADER_ROW_MAX][INVADER_COLUMN_MAX];
 
 int Invader::init(
 	const char* _fileName0,
@@ -29,16 +34,55 @@ int Invader::init(
 
 	return 0;
 }
+ int Invader::initAll() {
+	 g_invaders[0][0].init(
+		 "textures\\invader0-0.bmp",
+		 "textures\\invader0-1.bmp",
+		 vec2(11, 8));
 
+	 for (int i=0;i<INVADER_ROW_MAX;i++)
+		 for (int j = 0; j < INVADER_COLUMN_MAX; j++) {
+			 g_invaders[i][j] = g_invaders[0][0];
+			 g_invaders[i][j].m_position = vec2(
+				 j * 8 * 2,
+				 8*12-8*i*2
+			 );
+		 }
+	return 0;
+
+}
 void Invader::update() {
 	++m_animation %= INVADER_ANIIMATON_MAX;
 	m_position += Invader::m_speed;
+
+	if ((m_position.x >= SCREEN_WIDTH - m_size.x - INVADER_SPEED) &&
+		(m_speed.x > 0)) {
+		m_nextSpeed = vec2(-INVADER_SPEED, 8);
+	}
+	if ((m_position.x < INVADER_SPEED) && (m_speed.x < 0))
+
+		m_nextSpeed = vec2(INVADER_SPEED, 8);
 }
+void Invader::updateAll() {
+	g_invaders[m_current / INVADER_COLUMN_MAX][m_current % INVADER_COLUMN_MAX].update();
+	m_current++;
+	if (m_current >= INVADER_MAX) {
+		m_current = 0;
+		m_speed = m_nextSpeed;
+		m_nextSpeed.y = 0;
+	}
+};
 void Invader::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_textures[m_animation]);
 	glColor3ub(0xff, 0xff, 0xff);
 	Rect::draw();
+
+}
+ void Invader::drawAll() {
+	 for (int i = 0; i < INVADER_ROW_MAX; i++)
+		 for (int j = 0; j < INVADER_COLUMN_MAX; j++)
+			 g_invaders[i][j].draw();
 
 }

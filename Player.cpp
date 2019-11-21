@@ -34,6 +34,7 @@ void Player::draw() {
 	glColor3ub(0x00, 0xff, 0x00);
 	Rect::draw();
 }
+
 void Player::shoot() {
 	if (g_playerBullet.m_enable)
 		return;

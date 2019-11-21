@@ -19,7 +19,7 @@ bool g_keys[256];
 Player g_player;
 PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
-Invader invader;
+
 
 void display(void) {
 	
@@ -41,7 +41,7 @@ void display(void) {
 		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
 	
 	//Rect(vec2(128, 128)).draw();
-	invader.draw();
+	Invader::drawAll();
 	g_playerBulletExplosion.draw();
 	g_playerBullet.draw();
 	g_player.draw();
@@ -60,7 +60,7 @@ void display(void) {
 void idle(void){
 	audioUpdate();
 
-	invader.update();
+	Invader::updateAll();
 	g_playerBulletExplosion.update();
 	g_player.update();
 	g_playerBullet.update();
@@ -114,11 +114,8 @@ int main(int argc, char* argv[]) {
 	g_playerBulletExplosion.init("textures\\player_bullet_explosion.bmp",
 		vec2(8,8),
 		0xff,0x00,0x00);
-	invader.init(
-		"textures\\invader0-0.bmp",
-		"textures\\invader0-1.bmp",
-		vec2(11, 8));
-		
+	Invader::initAll();
+				
 	/*g_playerBulletExplosion.init("textures\1.bmp",
 		vec2(8, 8),
 		0x00, 0xff, 0x00);*/
