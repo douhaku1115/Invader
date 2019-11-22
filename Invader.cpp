@@ -38,13 +38,31 @@ int Invader::init(
 	 g_invaders[0][0].init(
 		 "textures\\invader0-0.bmp",
 		 "textures\\invader0-1.bmp",
+		 vec2(12, 8));
+	 for (int i = 0; i < 2; i++)
+		 for (int j = 0; j < INVADER_COLUMN_MAX; j++)
+			 g_invaders[i][j] = g_invaders[0][0];
+	
+	 g_invaders[2][0].init(
+		 "textures\\invader1-0.bmp",
+		 "textures\\invader1-1.bmp",
 		 vec2(11, 8));
+	 for (int i = 2; i < 4; i++)
+		 for (int j = 0; j < INVADER_COLUMN_MAX; j++)
+			 g_invaders[i][j] = g_invaders[2][0];
+
+	 g_invaders[4][0].init(
+		 "textures\\invader2-0.bmp",
+		 "textures\\invader2-1.bmp",
+		 vec2(8, 8));
+	 for (int j = 0; j < INVADER_COLUMN_MAX; j++)
+	 g_invaders[4][j] = g_invaders[4][0];
+
 
 	 for (int i=0;i<INVADER_ROW_MAX;i++)
 		 for (int j = 0; j < INVADER_COLUMN_MAX; j++) {
-			 g_invaders[i][j] = g_invaders[0][0];
-			 g_invaders[i][j].m_position = vec2(
-				 j * 8 * 2,
+			  g_invaders[i][j].m_position = vec2(
+				 j * 8 * 2-(g_invaders[i][j].m_size.x-8)/2,
 				 8*12-8*i*2
 			 );
 		 }
