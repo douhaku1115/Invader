@@ -21,6 +21,13 @@ void PlayerBullet::update() {
 		return;
 	m_position.y -= PLAYER_BULLET_SPEED;
 
+	for (int i=0;i<INVADER_ROW_MAX;i++)
+		for (int j=0;j<INVADER_COLUMN_MAX;j++)
+			if ((!g_invaders[i][j].m_dead)
+				&& (g_invaders[i][j].intersect(m_position))) {
+				g_invaders[i][j].m_dead = true;
+				m_enable = false;
+			}
 	if (m_position.y < 8 * 3) {
 		m_enable = false;
 		g_playerBulletExplosion.start(m_position

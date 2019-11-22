@@ -82,15 +82,27 @@ void Invader::update() {
 		m_nextSpeed = vec2(INVADER_SPEED, 8);
 }
 void Invader::updateAll() {
-	g_invaders[m_current / INVADER_COLUMN_MAX][m_current % INVADER_COLUMN_MAX].update();
-	m_current++;
-	if (m_current >= INVADER_MAX) {
-		m_current = 0;
-		m_speed = m_nextSpeed;
-		m_nextSpeed.y = 0;
+	while (
+		(m_current >= INVADER_MAX)
+		|| g_invaders[m_current / INVADER_COLUMN_MAX][m_current % INVADER_COLUMN_MAX].m_dead)
+	{
+		if (m_current >= INVADER_MAX) {
+			m_current = 0;
+			m_speed = m_nextSpeed;
+			m_nextSpeed.y = 0;
+		}
+		else
+			m_current++;
+		
 	}
+	g_invaders[m_current / INVADER_COLUMN_MAX][m_current % INVADER_COLUMN_MAX].update();
+	
+	
+	m_current++;
 };
 void Invader::draw() {
+	if (m_dead)
+		return;         //Ž€‚ñ‚Å‚¢‚½‚ç•`‰æ‚µ‚È‚¢
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_textures[m_animation]);
