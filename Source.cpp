@@ -19,7 +19,7 @@ bool g_keys[256];
 Player g_player;
 PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
-
+Explosion g_invaderExplosion;
 
 void display(void) {
 	
@@ -42,6 +42,7 @@ void display(void) {
 	
 	//Rect(vec2(128, 128)).draw();
 	Invader::drawAll();
+	g_invaderExplosion.draw();
 	g_playerBulletExplosion.draw();
 	g_playerBullet.draw();
 	g_player.draw();
@@ -61,6 +62,7 @@ void idle(void){
 	audioUpdate();
 
 	Invader::updateAll();
+	g_invaderExplosion.update();
 	g_playerBulletExplosion.update();
 	g_player.update();
 	g_playerBullet.update();
@@ -113,7 +115,10 @@ int main(int argc, char* argv[]) {
 	g_playerBullet.init();
 	g_playerBulletExplosion.init("textures\\player_bullet_explosion.bmp",
 		vec2(8,8),
-		0xff,0x00,0x00);
+		0xff,0xff,0xff);
+	g_invaderExplosion.init("textures\\invader_explosion.bmp",
+		vec2(13, 8),
+		0xff, 0xff, 0xff);
 	Invader::initAll();
 				
 	/*g_playerBulletExplosion.init("textures\1.bmp",

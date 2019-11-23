@@ -27,6 +27,9 @@ void PlayerBullet::update() {
 				&& (g_invaders[i][j].intersect(m_position))) {
 				g_invaders[i][j].m_dead = true;
 				m_enable = false;
+				g_invaderExplosion.start(
+					g_invaders[i][j].m_position-(g_invaderExplosion.m_size-g_invaders[i][j].m_size)/2.f
+				);
 			}
 	if (m_position.y < 8 * 3) {
 		m_enable = false;

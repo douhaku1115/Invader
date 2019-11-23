@@ -82,6 +82,9 @@ void Invader::update() {
 		m_nextSpeed = vec2(INVADER_SPEED, 8);
 }
 void Invader::updateAll() {
+	if ((Invader::getLives() <=0)
+		||(g_invaderExplosion.m_countLeft > 0))
+		return;
 	while (
 		(m_current >= INVADER_MAX)
 		|| g_invaders[m_current / INVADER_COLUMN_MAX][m_current % INVADER_COLUMN_MAX].m_dead)
@@ -116,3 +119,11 @@ void Invader::draw() {
 			 g_invaders[i][j].draw();
 
 }
+ int Invader::getLives() {
+	 int n=0;
+	 for (int i = 0; i < INVADER_ROW_MAX; i++)
+		 for (int j = 0; j < INVADER_COLUMN_MAX; j++)
+			 if (!g_invaders[i][j].m_dead)
+				 n++;
+	 return n;
+  }

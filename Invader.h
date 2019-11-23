@@ -26,6 +26,6 @@ struct Invader :Rect {
 
 	void draw();
 	static void drawAll();
-
+	static int getLives();
 };
 extern Invader g_invaders[INVADER_ROW_MAX][INVADER_COLUMN_MAX];

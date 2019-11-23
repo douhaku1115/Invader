@@ -12,3 +12,4 @@ extern bool g_keys[256];
 extern Player g_player;
 extern PlayerBullet g_playerBullet;
 extern Explosion g_playerBulletExplosion;
+extern Explosion g_invaderExplosion;
