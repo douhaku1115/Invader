@@ -2,6 +2,7 @@
 #include "tex.h"
 #include "Header.h"
 #include "glut.h"
+#include "audio.h"
 
 int PlayerBullet::init() {
 	m_size = vec2(PLAYER_BULLET_WIDTH, PLAYER_BULLET_HEIGHT);
@@ -25,6 +26,14 @@ void PlayerBullet::update() {
 		for (int j=0;j<INVADER_COLUMN_MAX;j++)
 			if ((!g_invaders[i][j].m_dead)
 				&& (g_invaders[i][j].intersect(m_position))) {
+
+				audioStop(AUDIO_CHANNEL_PULSE0);
+				audioWaveform(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_50);
+				audioFreq(AUDIO_CHANNEL_PULSE0, 440*1.5 );
+				audioDecay(AUDIO_CHANNEL_PULSE0, .8f);
+				audioSweep(AUDIO_CHANNEL_PULSE0, .9f, 440/2);
+				audioPlay(AUDIO_CHANNEL_PULSE0);
+
 				g_invaders[i][j].m_dead = true;
 				m_enable = false;
 				g_invaderExplosion.start(
