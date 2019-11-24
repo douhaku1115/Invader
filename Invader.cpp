@@ -2,10 +2,12 @@
 #include "tex.h"
 #include "glut.h"
 #include "Header.h"
-
+#include "audio.h"
 vec2 Invader::m_speed = vec2(INVADER_SPEED, 0);
 vec2 Invader::m_nextSpeed = Invader::m_speed;
 int Invader::m_current ;
+int Invader::m_bgmCount;
+int Invader::m_bgmphase;
 
 Invader g_invaders[INVADER_ROW_MAX][INVADER_COLUMN_MAX];
 
@@ -82,8 +84,23 @@ void Invader::update() {
 		m_nextSpeed = vec2(INVADER_SPEED, 8);
 }
 void Invader::updateAll() {
-	if ((Invader::getLives() <=0)
-		||(g_invaderExplosion.m_countLeft > 0))
+	if (Invader::getLives() <= 0)
+		return;
+	if (++m_bgmCount >= getLives()) {
+		m_bgmCount = 0;
+		audioStop(AUDIO_CHANNEL_TRIANGLE);
+		audioWaveform(AUDIO_CHANNEL_PULSE0, AUDIO_WAVEFORM_PULSE_50);
+		//audioFreq(AUDIO_CHANNEL_PULSE0, 440 * 1.5);
+		int tbl[] = { 0,-2,-3,2 };
+		audioFreq(AUDIO_CHANNEL_TRIANGLE, 440/4 * pow(2, tbl[m_bgmphase] / 12.f));
+		audioDecay(AUDIO_CHANNEL_TRIANGLE, .9f);
+		//audioSweep(AUDIO_CHANNEL_PULSE0, .9f);
+		audioPlay(AUDIO_CHANNEL_TRIANGLE);
+
+
+		++m_bgmphase %= INVADER_BGM_PHASE_MAX;
+	}
+	if (g_invaderExplosion.m_countLeft > 0)
 		return;
 	while (
 		(m_current >= INVADER_MAX)

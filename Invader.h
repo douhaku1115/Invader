@@ -5,10 +5,14 @@
 #define INVADER_COLUMN_MAX		11
 #define INVADER_MAX    INVADER_ROW_MAX * INVADER_COLUMN_MAX	      
 #define INVADER_SPEED           4
+#define INVADER_BGM_PHASE_MAX   4
+
 struct Invader :Rect {
 	static vec2 m_speed;
 	static vec2 m_nextSpeed;
 	static int m_current;
+	static int m_bgmCount;
+	static int m_bgmphase;
 	unsigned int m_textures[INVADER_ANIIMATON_MAX];
 	int m_animation;
 	bool m_dead;
