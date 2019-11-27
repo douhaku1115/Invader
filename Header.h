@@ -3,8 +3,8 @@
 #include "Player.h"
 #include "Explosion.h"
 #include "Invader.h"
-
-
+#include "InvaderBullet.h"
+#include <stdio.h>
 #define SCREEN_WIDTH  256
 #define SCREEN_HEIGHT 256
 

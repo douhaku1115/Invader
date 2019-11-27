@@ -1,3 +1,4 @@
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include "glut.h"
@@ -41,6 +42,7 @@ void display(void) {
 		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
 	
 	//Rect(vec2(128, 128)).draw();
+	InvaderBullet::drawAll();
 	Invader::drawAll();
 	g_invaderExplosion.draw();
 	g_playerBulletExplosion.draw();
@@ -60,7 +62,7 @@ void display(void) {
 
 void idle(void){
 	audioUpdate();
-
+	InvaderBullet::updateAll();
 	Invader::updateAll();
 	g_invaderExplosion.update();
 	g_playerBulletExplosion.update();
@@ -98,8 +100,8 @@ void passiveMotion(int x, int y) {
 	printf("passoveMotion::x:%d y:%d\n",x,y);
 }
 int main(int argc, char* argv[]) {
-	audioInit();
 	srand(time(NULL));
+	audioInit();
 	glutInit(&argc, argv);
 
 	glutInitDisplayMode(GL_DOUBLE);
@@ -120,7 +122,7 @@ int main(int argc, char* argv[]) {
 		vec2(13, 8),
 		0xff, 0xff, 0xff);
 	Invader::initAll();
-				
+	InvaderBullet::initAll();
 	/*g_playerBulletExplosion.init("textures\1.bmp",
 		vec2(8, 8),
 		0x00, 0xff, 0x00);*/
