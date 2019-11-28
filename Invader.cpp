@@ -64,8 +64,8 @@ int Invader::init(
 	 for (int i=0;i<INVADER_ROW_MAX;i++)
 		 for (int j = 0; j < INVADER_COLUMN_MAX; j++) {
 			  g_invaders[i][j].m_position = vec2(
-				 j * 8 * 2-(g_invaders[i][j].m_size.x-8)/2,
-				 8*12-8*i*2
+				8*3+ j * 8 * 2-(g_invaders[i][j].m_size.x-8)/2,
+				 8*(3+3+5*2)-8*i*2
 			 );
 		 }
 	return 0;
@@ -154,7 +154,7 @@ void Invader::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_textures[m_animation]);
-	glColor3ub(0xff, 0xff, 0xff);
+	setColorWithPosition(m_position);
 	Rect::draw();
 
 }

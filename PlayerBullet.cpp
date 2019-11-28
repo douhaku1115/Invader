@@ -53,7 +53,7 @@ void PlayerBullet::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);       //GLuint texture)
-	glColor3ub(0xff, 0xff, 0xff);
+	setColorWithPosition(m_position);
 	Rect::draw();
 
 }

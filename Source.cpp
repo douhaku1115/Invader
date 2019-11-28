@@ -22,7 +22,16 @@ PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
 Explosion g_invaderExplosion;
 
-void display(void) {
+void setColorWithPosition(vec2 const& position) {
+	if (position.y < 8 * 6)
+		glColor3ub(0xff, 0x00, 0x00);
+	else if	
+		(position.y < 8 * 20)
+		glColor3ub(0xff, 0xff, 0xff);
+	else
+		glColor3ub(0x00, 0xff, 0x00);
+}
+void display() {
 	
 	glClear(GL_COLOR_BUFFER_BIT);
 	glMatrixMode(GL_PROJECTION);//(GLenum mode);
@@ -116,17 +125,11 @@ int main(int argc, char* argv[]) {
 	g_player.init();
 	g_playerBullet.init();
 	g_playerBulletExplosion.init("textures\\player_bullet_explosion.bmp",
-		vec2(8,8),
-		0xff,0xff,0xff);
+		vec2(8,8));
 	g_invaderExplosion.init("textures\\invader_explosion.bmp",
-		vec2(13, 8),
-		0xff, 0xff, 0xff);
+		vec2(13, 8));
 	Invader::initAll();
 	InvaderBullet::initAll();
-	/*g_playerBulletExplosion.init("textures\1.bmp",
-		vec2(8, 8),
-		0x00, 0xff, 0x00);*/
-	//texFromBPM("test1.bmp");
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);

@@ -1,11 +1,9 @@
 #include "Explosion.h"
 #include "tex.h"
+#include  "Header.h"
 #include  "glut.h"
 
-int Explosion::init(const char* _fileName, vec2 const& _size,
-	unsigned char _red,
-	unsigned char _green,
-	unsigned char _blue) {
+int Explosion::init(const char* _fileName, vec2 const& _size) {
 
 	glGenTextures(
 		1,          //GLsizei n, 
@@ -16,13 +14,7 @@ int Explosion::init(const char* _fileName, vec2 const& _size,
 
 	//texFromBPM("textures\player_bullet_explosion.bmp", 0x00, 0xff, 0x00);
 	texFromBPM(_fileName, 0x00, 0xff, 0x00);
-
-
 	m_size = _size;
-	m_color[0] = _red;
-	m_color[1] = _green;
-	m_color[2] = _blue;
-
 	return 0;
 		
 }
@@ -42,7 +34,7 @@ void Explosion::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);
-		glColor3ubv(m_color);//(const GLubyte *v)
+	setColorWithPosition(m_position);
 	Rect::draw();
 
 }

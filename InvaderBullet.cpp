@@ -29,6 +29,7 @@ void InvaderBullet::draw() {
 	if (!m_enable)
 		return;
 	glDisable(GL_TEXTURE_2D);
+	setColorWithPosition(m_position);
 	Rect::draw();
 	glEnable(GL_TEXTURE_2D);
 }

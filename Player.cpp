@@ -31,7 +31,7 @@ void Player::draw() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);
-	glColor3ub(0x00, 0xff, 0x00);
+	setColorWithPosition(m_position);
 	Rect::draw();
 }
 
