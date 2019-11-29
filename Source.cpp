@@ -92,7 +92,7 @@ void reshape(int width, int height) {
 void keyboard(unsigned char key, int x, int y) {
 	if (key == 0x1b)
 		exit(0);
-	printf("keyboard:\'%c\'(%#x)\n", key, key);
+	//printf("keyboard:\'%c\'(%#x)\n", key, key);
 	g_keys[key] = true;
 
 	switch (key) {
@@ -102,11 +102,11 @@ void keyboard(unsigned char key, int x, int y) {
 	
 }
 void keyboardUp(unsigned char key, int x, int y) {
-	printf("keyboardUp:\'%c\'(%#x)\n", key, key);
+	//printf("keyboardUp:\'%c\'(%#x)\n", key, key);
 	g_keys[key] = false;
 }
 void passiveMotion(int x, int y) {
-	printf("passoveMotion::x:%d y:%d\n",x,y);
+	//printf("passoveMotion::x:%d y:%d\n",x,y);
 }
 int main(int argc, char* argv[]) {
 	srand(time(NULL));

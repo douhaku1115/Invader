@@ -128,7 +128,6 @@ void Invader::updateAll() {
 		int stop = false;
 		for (int i = row - 1; i >=0; i--){  //下位のインベーダーからの発射は無し
 			if (!g_invaders[i][column].m_dead) {
-				printf("can't shoot!! %d %d\n", i,  column);
 				stop = true;
 				break;
 			}
@@ -137,13 +136,12 @@ void Invader::updateAll() {
 			if (!stop) {
 				InvaderBullet* pBullet = &g_invaderBullets[0];
 				if (!pBullet->m_enable) {
-					pBullet->m_enable = true;
-					pBullet->m_position = vec2(
-						pInvader->m_position.x + (pInvader->m_size.x - pBullet->m_size.x) / 2,
-						pInvader->m_position.y + pInvader->m_size.y);
-
-
-				}
+					pBullet->shoot(
+						vec2(
+							pInvader->m_position.x + (pInvader->m_size.x - pBullet->m_size.x) / 2,
+							pInvader->m_position.y + pInvader->m_size.y)
+					);
+					}
 			}
 		}
 	}

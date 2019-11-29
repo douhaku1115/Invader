@@ -13,7 +13,6 @@ int PlayerBullet::init() {
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);       //GLuint texture)
-	texFromBPM("textures\white.bmp");
 	return 0;
 
 }

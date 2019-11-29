@@ -1,14 +1,32 @@
 #include "InvaderBullet.h"
 #include "glut.h"
-#include"Header.h"
+#include "Header.h"
+#include "tex.h"
 
 InvaderBullet g_invaderBullets[INVADER_BULLET_MAX];
 
+static GLuint textures[INVADER_BULLET_ANIMATION_TYPE_MAX][INVADER_BULLET_ANIMATION_LENGTH];
 int InvaderBullet::init() {
 	m_size=vec2(INVADER_BULLET_WIDTH, INVADER_BULLET_HEIGHT);
 		return 0; 
 }
 int InvaderBullet::initAll() {
+	glGenTextures(
+		INVADER_BULLET_ANIMATION_TYPE_MAX* INVADER_BULLET_ANIMATION_LENGTH,          //GLsizei n, 
+		*textures);//GLuint *textures);
+	
+	{
+		char fileName[256];
+		for (int i = 2; i < INVADER_BULLET_ANIMATION_TYPE_MAX; i++) {
+			for (int j = 0; j < INVADER_BULLET_ANIMATION_LENGTH; j++) {
+				sprintf_s(fileName,sizeof(fileName), "textures\\invader_bullet%d-%d.bmp", i, j);
+				glBindTexture(
+					GL_TEXTURE_2D, //GLenum target, 
+					textures[i][j]);       //GLuint texture)
+				texFromBPM(fileName, 0x00, 0xff, 0x00);
+			}
+		}
+	}
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
 		g_invaderBullets[i].init();
 	return 0;
@@ -20,6 +38,8 @@ void InvaderBullet::update() {
 	if (m_position.y >= SCREEN_HEIGHT)
 		m_enable = false;
 
+	++m_animationFrame %= INVADER_BULLET_ANIMATION_LENGTH;
+
 }
 void InvaderBullet::updateAll() {
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
@@ -28,12 +48,24 @@ void InvaderBullet::updateAll() {
 void InvaderBullet::draw() {
 	if (!m_enable)
 		return;
-	glDisable(GL_TEXTURE_2D);
+	
+	glBindTexture(
+		GL_TEXTURE_2D, //GLenum target, 
+		textures[m_animationType][m_animationFrame]);
+
 	setColorWithPosition(m_position);
 	Rect::draw();
-	glEnable(GL_TEXTURE_2D);
+	
 }
 void InvaderBullet::drawAll() {
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
 		g_invaderBullets[i].draw();
+}
+void InvaderBullet::shoot(vec2 const& _position) {
+	m_position = _position;
+	m_enable = true;
+
+	m_animationType = 2;
+
+	//rand() % INVADER_BULLET_ANIMATION_TYPE_MAX
 }
