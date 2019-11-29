@@ -17,7 +17,7 @@ int InvaderBullet::initAll() {
 	
 	{
 		char fileName[256];
-		for (int i = 2; i < INVADER_BULLET_ANIMATION_TYPE_MAX; i++) {
+		for (int i = 0; i < INVADER_BULLET_ANIMATION_TYPE_MAX; i++) {
 			for (int j = 0; j < INVADER_BULLET_ANIMATION_LENGTH; j++) {
 				sprintf_s(fileName,sizeof(fileName), "textures\\invader_bullet%d-%d.bmp", i, j);
 				glBindTexture(
@@ -38,8 +38,12 @@ void InvaderBullet::update() {
 	if (m_position.y >= SCREEN_HEIGHT)
 		m_enable = false;
 
-	++m_animationFrame %= INVADER_BULLET_ANIMATION_LENGTH;
-
+	if (m_animationWait > 0)
+		m_animationWait--;
+	else {
+		++m_animationFrame %= INVADER_BULLET_ANIMATION_LENGTH;
+		m_animationWait = INVADER_BULLET_ANIMATION_WAIT_MAX;
+	}
 }
 void InvaderBullet::updateAll() {
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
@@ -65,7 +69,9 @@ void InvaderBullet::shoot(vec2 const& _position) {
 	m_position = _position;
 	m_enable = true;
 
-	m_animationType = 2;
+	m_animationType = rand() % INVADER_BULLET_ANIMATION_TYPE_MAX;
 
-	//rand() % INVADER_BULLET_ANIMATION_TYPE_MAX
+	
+	m_animationWait = INVADER_BULLET_ANIMATION_WAIT_MAX;
+
 }

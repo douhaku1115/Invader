@@ -6,11 +6,14 @@
 #define INVADER_BULLET_SPEED  1
 #define INVADER_BULLET_ANIMATION_TYPE_MAX 3
 #define INVADER_BULLET_ANIMATION_LENGTH 4
+#define INVADER_BULLET_ANIMATION_WAIT_MAX 3
 
 struct InvaderBullet :Rect {
 	bool m_enable;
 	int m_animationType;
 	int m_animationFrame;
+	int m_animationWait;
+
 	int init();
 	static int initAll();
 	void update();
