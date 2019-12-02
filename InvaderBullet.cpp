@@ -65,13 +65,21 @@ void InvaderBullet::drawAll() {
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
 		g_invaderBullets[i].draw();
 }
-void InvaderBullet::shoot(vec2 const& _position) {
+void InvaderBullet::shoot(vec2 const& _position, Invader *_pOwner) {
 	m_position = _position;
 	m_enable = true;
+	m_pOwner = _pOwner;
 
 	m_animationType = rand() % INVADER_BULLET_ANIMATION_TYPE_MAX;
 
 	
 	m_animationWait = INVADER_BULLET_ANIMATION_WAIT_MAX;
 
+}
+int InvaderBullet:: getShootingCount() {
+	int n = 0;
+	for (int i = 0; i < INVADER_BULLET_MAX; i++)
+		if (g_invaderBullets[i].m_enable)
+			n++;
+	return n;
 }

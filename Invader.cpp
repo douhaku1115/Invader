@@ -120,31 +120,42 @@ void Invader::updateAll() {
 	
 	m_current++;
 	{
+		for (int i = 0; i < INVADER_BULLET_MAX; i++){
+			if (
+				(getLives() >= INVADER_MAX / 2)
+				&& (InvaderBullet::getShootingCount() > 0)
+				)
+				continue;
 		int r = rand() % INVADER_MAX;
 		int row = rand() % INVADER_ROW_MAX;    //11行
 		int column = rand() % INVADER_COLUMN_MAX;  //5列
-		Invader* pInvader = &g_invaders[row][column];
-		
-		int stop = false;
-		for (int i = row - 1; i >=0; i--){  //下位のインベーダーからの発射は無し
+		Invader* pOwner = &g_invaders[row][column];
+
+		if (
+			pOwner->m_dead
+			|| pOwner->isShooting()
+			)
+			continue;
+		bool stop = false;
+		for (int i = row - 1; i >= 0; i--) {  //下位のインベーダーからの発射は無し
 			if (!g_invaders[i][column].m_dead) {
 				stop = true;
 				break;
 			}
 		}
-		if (!pInvader->m_dead) {
-			if (!stop) {
-				InvaderBullet* pBullet = &g_invaderBullets[0];
-				if (!pBullet->m_enable) {
-					pBullet->shoot(
+		if (stop)
+			continue; 
+				InvaderBullet* pBullet = &g_invaderBullets[i];
+				if (pBullet->m_enable)
+					continue;
+				pBullet->shoot(
 						vec2(
-							pInvader->m_position.x + (pInvader->m_size.x - pBullet->m_size.x) / 2,
-							pInvader->m_position.y + pInvader->m_size.y)
-					);
-					}
+							pOwner->m_position.x + (pOwner->m_size.x - pBullet->m_size.x) / 2,
+							pOwner->m_position.y + pOwner->m_size.y),
+							pOwner
+				);
+				}
 			}
-		}
-	}
 };
 void Invader::draw() {
 	if (m_dead)
@@ -170,3 +181,12 @@ void Invader::draw() {
 				 n++;
 	 return n;
   }
+ bool Invader::isShooting() {
+	 for (int i = 0; i < INVADER_BULLET_MAX; i++) {
+		 InvaderBullet* pBullet = &g_invaderBullets[i];
+		 if (pBullet->m_enable
+			 && pBullet->m_pOwner == this)
+			 return true;
+	 }
+	 return false;
+ }

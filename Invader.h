@@ -16,6 +16,7 @@ struct Invader :Rect {
 	unsigned int m_textures[INVADER_ANIIMATON_MAX];
 	int m_animation;
 	bool m_dead;
+	
 
 	int init(
 		const char* _fileName0,
@@ -31,5 +32,6 @@ struct Invader :Rect {
 	void draw();
 	static void drawAll();
 	static int getLives();
+	bool isShooting();
 };
 extern Invader g_invaders[INVADER_ROW_MAX][INVADER_COLUMN_MAX];
