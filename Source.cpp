@@ -21,6 +21,7 @@ Player g_player;
 PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
 Explosion g_invaderExplosion;
+Explosion g_invaderBulletExplosions[INVADER_BULLET_MAX];
 
 void setColorWithPosition(vec2 const& position) {
 	if (position.y < 8 * 6)
@@ -53,6 +54,8 @@ void display() {
 	//Rect(vec2(128, 128)).draw();
 	InvaderBullet::drawAll();
 	Invader::drawAll();
+	for (int i = 0; i < INVADER_BULLET_MAX; i++)
+		g_invaderBulletExplosions[i].draw();
 	g_invaderExplosion.draw();
 	g_playerBulletExplosion.draw();
 	g_playerBullet.draw();
@@ -71,9 +74,11 @@ void display() {
 
 void idle(void){
 	audioUpdate();
+	for (int i = 0; i < INVADER_BULLET_MAX; i++)
+		g_invaderBulletExplosions[i].update();
 	InvaderBullet::updateAll();
-	Invader::updateAll();
 	g_invaderExplosion.update();
+	Invader::updateAll();
 	g_playerBulletExplosion.update();
 	g_player.update();
 	g_playerBullet.update();
@@ -126,8 +131,9 @@ int main(int argc, char* argv[]) {
 	g_playerBullet.init();
 	g_playerBulletExplosion.init("textures\\player_bullet_explosion.bmp",
 		vec2(8,8));
-	g_invaderExplosion.init("textures\\invader_explosion.bmp",
-		vec2(13, 8));
+	g_invaderExplosion.init("textures\\invader_explosion.bmp",vec2(13, 8));
+	g_invaderBulletExplosions[0].init("textures\\invader_bullet_explosion.bmp", vec2(8, 8));
+	g_invaderBulletExplosions[1] = g_invaderBulletExplosions[0];
 	Invader::initAll();
 	InvaderBullet::initAll();
 	glutDisplayFunc(display);

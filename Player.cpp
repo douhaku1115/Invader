@@ -7,7 +7,7 @@
 #include "audio.h"
 
 int Player::init() {
-	m_size = vec2(PLAYER_WIDTH, PLAYER_HIGHT);
+	m_size = vec2(PLAYER_WIDTH, PLAYER_HEIGHT);
 	m_position = vec2(PLAYER_DEFAULT_X, PLAYER_DEFAULT_Y);
 
 	glGenTextures(

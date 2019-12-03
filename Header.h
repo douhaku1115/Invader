@@ -14,3 +14,4 @@ extern Player g_player;
 extern PlayerBullet g_playerBullet;
 extern Explosion g_playerBulletExplosion;
 extern Explosion g_invaderExplosion;
+extern Explosion g_invaderBulletExplosions[INVADER_BULLET_MAX];

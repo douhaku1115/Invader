@@ -35,9 +35,23 @@ void InvaderBullet::update() {
 	if (!m_enable)
 		return;
 	m_position.y += INVADER_BULLET_SPEED;
-	if (m_position.y >= SCREEN_HEIGHT)
+	if (m_position.y >= SCREEN_HEIGHT - 8 - m_size.y) {
 		m_enable = false;
+		for (int i = 0; i < INVADER_BULLET_MAX; i++) {
+			Explosion *pExplosion = &g_invaderBulletExplosions[i];
+			if (pExplosion->m_countLeft <= 0) {
+				pExplosion->start(
+					vec2(
+						m_position.x - (pExplosion->m_size.x - m_size.x) / 2.f,
+						m_position.y
+					)
+				);
+				break;
+			}
+		}
 
+
+	}
 	if (m_animationWait > 0)
 		m_animationWait--;
 	else {
