@@ -5,6 +5,8 @@
 #include "Invader.h"
 #include "InvaderBullet.h"
 #include <stdio.h>
+#include "Ground.h"
+
 #define SCREEN_WIDTH  256
 #define SCREEN_HEIGHT 256
 
@@ -15,3 +17,4 @@ extern PlayerBullet g_playerBullet;
 extern Explosion g_playerBulletExplosion;
 extern Explosion g_invaderExplosion;
 extern Explosion g_invaderBulletExplosions[INVADER_BULLET_MAX];
+extern Ground g_Ground;

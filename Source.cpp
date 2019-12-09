@@ -22,6 +22,7 @@ PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
 Explosion g_invaderExplosion;
 Explosion g_invaderBulletExplosions[INVADER_BULLET_MAX];
+Ground g_Ground;
 
 void setColorWithPosition(vec2 const& position) {
 	if (position.y < 8 * 6)
@@ -52,6 +53,7 @@ void display() {
 		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
 	
 	//Rect(vec2(128, 128)).draw();
+	g_Ground.draw();
 	InvaderBullet::drawAll();
 	Invader::drawAll();
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
@@ -136,6 +138,7 @@ int main(int argc, char* argv[]) {
 	g_invaderBulletExplosions[1] = g_invaderBulletExplosions[0];
 	Invader::initAll();
 	InvaderBullet::initAll();
+	g_Ground.init();
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);
