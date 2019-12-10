@@ -49,9 +49,13 @@ void InvaderBullet::update() {
 				break;
 			}
 		}
-
-
-	}
+		{
+			int x = m_position.x + (int)(m_size.x / 2);
+			
+			for (int i=x-2;i<=x+2;i+=2)
+				g_Ground.erasePixel(i);
+			}
+		}
 	if (m_animationWait > 0)
 		m_animationWait--;
 	else {

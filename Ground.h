@@ -9,5 +9,5 @@ struct Ground :Rect {
 
 	int init();
 	void draw();
-
+	void erasePixel(int _x);
 };
