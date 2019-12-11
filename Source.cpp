@@ -18,6 +18,7 @@ using namespace glm;
 bool g_keys[256];
 
 Player g_player;
+PlayerExplosion g_PlayerExplosion;
 PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
 Explosion g_invaderExplosion;
@@ -62,6 +63,7 @@ void display() {
 	g_playerBulletExplosion.draw();
 	g_playerBullet.draw();
 	g_player.draw();
+	g_PlayerExplosion.draw();
 
 	fontBegin();
 	fontHeight(FONT_DEFAULT_HEIGHT);
@@ -82,6 +84,7 @@ void idle(void){
 	g_invaderExplosion.update();
 	Invader::updateAll();
 	g_playerBulletExplosion.update();
+	g_PlayerExplosion.update();
 	g_player.update();
 	g_playerBullet.update();
 	glutPostRedisplay();
@@ -130,6 +133,7 @@ int main(int argc, char* argv[]) {
 	glutCreateWindow("tittle");
 
 	g_player.init();
+	g_PlayerExplosion.init();
 	g_playerBullet.init();
 	g_playerBulletExplosion.init("textures\\player_bullet_explosion.bmp",
 		vec2(8,8));
