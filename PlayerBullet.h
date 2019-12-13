@@ -14,6 +14,6 @@ struct PlayerBullet :Rect {
 	int init();
 	void update();
 	void draw();
-
+	
 
 };

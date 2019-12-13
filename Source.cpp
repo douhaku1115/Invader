@@ -18,12 +18,12 @@ using namespace glm;
 bool g_keys[256];
 
 Player g_player;
-PlayerExplosion g_PlayerExplosion;
+PlayerExplosion g_playerExplosion;
 PlayerBullet g_playerBullet;
 Explosion g_playerBulletExplosion;
 Explosion g_invaderExplosion;
 Explosion g_invaderBulletExplosions[INVADER_BULLET_MAX];
-Ground g_Ground;
+Ground g_ground;
 
 void setColorWithPosition(vec2 const& position) {
 	if (position.y < 8 * 6)
@@ -54,7 +54,7 @@ void display() {
 		GL_ONE_MINUS_DST_ALPHA);//GLenum dfactor);
 	
 	//Rect(vec2(128, 128)).draw();
-	g_Ground.draw();
+	g_ground.draw();
 	InvaderBullet::drawAll();
 	Invader::drawAll();
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
@@ -63,7 +63,7 @@ void display() {
 	g_playerBulletExplosion.draw();
 	g_playerBullet.draw();
 	g_player.draw();
-	g_PlayerExplosion.draw();
+	g_playerExplosion.draw();
 
 	fontBegin();
 	fontHeight(FONT_DEFAULT_HEIGHT);
@@ -84,7 +84,7 @@ void idle(void){
 	g_invaderExplosion.update();
 	Invader::updateAll();
 	g_playerBulletExplosion.update();
-	g_PlayerExplosion.update();
+	g_playerExplosion.update();
 	g_player.update();
 	g_playerBullet.update();
 	glutPostRedisplay();
@@ -133,7 +133,7 @@ int main(int argc, char* argv[]) {
 	glutCreateWindow("tittle");
 
 	g_player.init();
-	g_PlayerExplosion.init();
+	g_playerExplosion.init();
 	g_playerBullet.init();
 	g_playerBulletExplosion.init("textures\\player_bullet_explosion.bmp",
 		vec2(8,8));
@@ -142,7 +142,7 @@ int main(int argc, char* argv[]) {
 	g_invaderBulletExplosions[1] = g_invaderBulletExplosions[0];
 	Invader::initAll();
 	InvaderBullet::initAll();
-	g_Ground.init();
+	g_ground.init();
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);

@@ -13,5 +13,5 @@ struct PlayerExplosion :Rect {
 	int init();
 	void update();
 	void draw();
-
+	void start(vec2 const& _position);
 };
