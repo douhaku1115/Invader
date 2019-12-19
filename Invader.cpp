@@ -84,7 +84,9 @@ void Invader::update() {
 		m_nextSpeed = vec2(INVADER_SPEED, 8);
 }
 void Invader::updateAll() {
-	if (Invader::getLives() <= 0)
+	if (
+		(getLives() <= 0)
+		|| (g_playerExplosion.m_countLeft >0))
 		return;
 	if (++m_bgmCount >= getLives()) {
 		m_bgmCount = 0;

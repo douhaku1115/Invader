@@ -36,11 +36,18 @@ void InvaderBullet::update() {
 		return;
 	m_position.y += INVADER_BULLET_SPEED;
 
-	if (g_player.intersect(m_position + vec2((int)m_size.x / 2, m_size.y)) ){
+	if (
+		(g_playerExplosion.m_countLeft<=0)
+		&& g_player.intersect(m_position + vec2((int)m_size.x / 2, m_size.y)) )
+	{
 		g_playerExplosion.start(
 			vec2(g_player.m_position.x,
 				g_player.m_position.y));
+		g_player.m_position.x = PLAYER_DEFAULT_X;
+		m_enable = false;
+		return;
 	}
+	
 
 	if (m_position.y >= SCREEN_HEIGHT - 8 - m_size.y) {
 		m_enable = false;
@@ -62,6 +69,7 @@ void InvaderBullet::update() {
 			for (int i=x-2;i<=x+2;i+=2)
 				g_ground.erasePixel(i);
 			}
+		return;
 		}
 	if (m_animationWait > 0)
 		m_animationWait--;

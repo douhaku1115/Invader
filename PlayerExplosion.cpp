@@ -20,13 +20,17 @@ int PlayerExplosion::init() {
 
 }
 void PlayerExplosion::update() {
-
-
+	if (m_countLeft <= 0)
+		return;
+	m_countLeft--;
 }
 void PlayerExplosion::draw() {
+	if (m_countLeft <= 0)
+		return;
+
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
-		m_textures[0]);
+		m_textures[m_countLeft/8%PLAYER_EXPLOSION_ANIMATION_MAX]);
 	setColorWithPosition(m_position);
 
 	Rect::draw();
@@ -34,6 +38,7 @@ void PlayerExplosion::draw() {
 }
 void PlayerExplosion::start(vec2 const& _position) {
 	m_position = _position;
+	m_countLeft = PLAYER_EXPLOSION_COUNT_MAX;
 
 
 }

@@ -4,7 +4,7 @@
 #define PLAYER_EXPLOSION_WIDTH 16
 #define PLAYER_EXPLOSION_HEIGHT 8
 #define PLAYER_EXPLOSION_ANIMATION_MAX 2
-
+#define PLAYER_EXPLOSION_COUNT_MAX (60*2)
 
 struct PlayerExplosion :Rect {
 	unsigned int m_textures[PLAYER_EXPLOSION_ANIMATION_MAX];

@@ -20,6 +20,8 @@ int Player::init() {
 	return 0;
 }
 void Player::update() {
+	if (g_playerExplosion.m_countLeft > 0)
+		return;
 	if (g_keys['a'])
 		if(m_position.x>0)
 		m_position.x--;
@@ -28,6 +30,8 @@ void Player::update() {
 		m_position.x++;
 }
 void Player::draw() {
+	if (g_playerExplosion.m_countLeft > 0)
+		return;
 	glBindTexture(
 		GL_TEXTURE_2D, //GLenum target, 
 		m_texture);
