@@ -3,6 +3,8 @@
 #include "tex.h"
 #include "glut.h"
 #include "Header.h"
+#include  "audio.h"
+
 int PlayerExplosion::init() {
 	glGenTextures(
 		PLAYER_EXPLOSION_ANIMATION_MAX,          //GLsizei n, 
@@ -37,6 +39,13 @@ void PlayerExplosion::draw() {
 	
 }
 void PlayerExplosion::start(vec2 const& _position) {
+	audioStop(AUDIO_CHANNEL_NOISE);
+	audioFreq(AUDIO_CHANNEL_NOISE, audioIndexToFreq(13));
+	//audioSweep(AUDIO_CHANNEL_NOISE, .9f, audioIndexToFreq(15));
+	audioDecay(AUDIO_CHANNEL_NOISE, .975f);
+	audioPlay(AUDIO_CHANNEL_NOISE);
+
+	
 	m_position = _position;
 	m_countLeft = PLAYER_EXPLOSION_COUNT_MAX;
 
