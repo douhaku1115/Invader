@@ -1,10 +1,10 @@
 #pragma once
 #include "Rect.h"
-#define GROUND_WIDTH 256
+#include "Header.h"
 
 
 struct Ground :Rect {
-	unsigned char m_pixels[GROUND_WIDTH];
+	unsigned char m_pixels[SCREEN_WIDTH];
 	unsigned m_texture;
 
 	int init();

@@ -59,7 +59,7 @@ void Ground::draw() {
 
 }
 void Ground::erasePixel(int _x) {
-	if ((_x < 0) || (_x >= GROUND_WIDTH))
+	if ((_x < 0) || (_x >= SCREEN_WIDTH))
 		return;
 	m_pixels[_x] = 0;
 

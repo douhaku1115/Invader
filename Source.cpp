@@ -24,6 +24,7 @@ Explosion g_playerBulletExplosion;
 Explosion g_invaderExplosion;
 Explosion g_invaderBulletExplosions[INVADER_BULLET_MAX];
 Ground g_ground;
+Pillbox g_Pillboxes[PILLBOX_MAX];
 
 void setColorWithPosition(vec2 const& position) {
 	if (position.y < 8 * 6)
@@ -55,6 +56,8 @@ void display() {
 	
 	//Rect(vec2(128, 128)).draw();
 	g_ground.draw();
+	for (int i = 0; i < PILLBOX_MAX; i++)
+		g_Pillboxes[i].draw();
 	InvaderBullet::drawAll();
 	Invader::drawAll();
 	for (int i = 0; i < INVADER_BULLET_MAX; i++)
@@ -143,6 +146,8 @@ int main(int argc, char* argv[]) {
 	Invader::initAll();
 	InvaderBullet::initAll();
 	g_ground.init();
+	for (int i = 0; i < PILLBOX_MAX; i++)
+		g_Pillboxes[i].init();
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);

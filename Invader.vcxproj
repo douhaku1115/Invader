@@ -136,6 +136,7 @@
     <ClCompile Include="Ground.cpp" />
     <ClCompile Include="Invader.cpp" />
     <ClCompile Include="InvaderBullet.cpp" />
+    <ClCompile Include="Pillbox.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="PlayerExplosion.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Header.h" />
     <ClInclude Include="Invader.h" />
     <ClInclude Include="InvaderBullet.h" />
+    <ClInclude Include="Pillbox.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerExplosion.h" />
