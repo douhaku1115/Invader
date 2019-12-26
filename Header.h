@@ -1,5 +1,5 @@
 #pragma once
-#define SCREEN_WIDTH  256
+#define SCREEN_WIDTH  224
 #define SCREEN_HEIGHT 256
 
 #include "PlayerBullet.h"

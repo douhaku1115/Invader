@@ -146,8 +146,15 @@ int main(int argc, char* argv[]) {
 	Invader::initAll();
 	InvaderBullet::initAll();
 	g_ground.init();
-	for (int i = 0; i < PILLBOX_MAX; i++)
-		g_Pillboxes[i].init();
+	{
+		int x = (SCREEN_WIDTH - PILLBOX_WIDTH * (PILLBOX_MAX * 2 - 1))/2;
+		for (int i = 0; i < PILLBOX_MAX; i++) {
+			g_Pillboxes[i].init();
+			g_Pillboxes[i].m_position = vec2(
+			x, PILLBOX_TOP);
+			x += PILLBOX_WIDTH * 2;
+		}
+	}
 	glutDisplayFunc(display);
 	//glutTimerFunc(0, timer, 0);
 	glutIdleFunc(idle);
